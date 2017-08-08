@@ -11,10 +11,14 @@ window.onload = function () {
 
     img_full.src = full;
 
-    img_full.onload = function () {
-      img.src = full; // 利用缓存机制实现直接替换
-      img.style.filter = "blur(0px)";
-    }
+    // 闭包解决多个img无法加载问题
+    function J(img) {
+      img_full.onload = function () {
+        img.src = full; // 利用缓存机制实现直接替换
+        img.style.filter = "blur(0px)";
+      }
+    };
+    J(img);
   }
 };
 
