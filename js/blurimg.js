@@ -1,24 +1,30 @@
 // onload-->the dom and resources has been loaded
-window.onload = function () {
+export default function blurImg() {
   var imgs = document.getElementsByTagName("img");
   for (var i = 0; i < imgs.length; i++) {
     var img = imgs[i];
+
+    var full = img.getAttribute("data-full");
+    if (full === null) {
+      continue;
+    }
     img.style.filter = "blur(15px)";
     img.style.transition = "all .3s";
-    var full = img.getAttribute("data-full");
 
     var img_full = document.createElement("img");
 
     img_full.src = full;
 
-    // 闭包解决多个img无法加载问题
+    // 闭包解决this指向问题
     function J(img) {
       img_full.onload = function () {
         img.src = full; // 利用缓存机制实现直接替换
         img.style.filter = "blur(0px)";
+        console.log(img.classList);
       }
     };
     J(img);
+
   }
 };
 
