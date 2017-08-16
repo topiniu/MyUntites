@@ -1,5 +1,5 @@
 // onload-->the dom and resources has been loaded
-export default function blurImg() {
+window.onload = function () {
   var imgs = document.getElementsByTagName("img");
   for (var i = 0; i < imgs.length; i++) {
     var img = imgs[i];
@@ -20,14 +20,11 @@ export default function blurImg() {
       img_full.onload = function () {
         img.src = full; // 利用缓存机制实现直接替换
         img.style.filter = "blur(0px)";
-        console.log(img.classList);
       }
     };
     J(img, full);
-
   }
-};
-
+}
 /*
 *
 * WTF
